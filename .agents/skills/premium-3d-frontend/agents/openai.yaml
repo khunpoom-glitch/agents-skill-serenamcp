@@ -1,0 +1,4 @@
+interface:
+  display_name: "Premium 3D Frontend"
+  short_description: "Premium cinematic React/Vite frontend guidance"
+  default_prompt: "Use $premium-3d-frontend to build or refine a cinematic React/Vite interface with meaningful 3D depth."
