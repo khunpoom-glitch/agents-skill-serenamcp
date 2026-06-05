@@ -19,7 +19,6 @@
 
 ## Codex Skills
 
-- Serena MCP is installed for this project via global Codex config. When Serena tools are available, call `initial_instructions` before coding tasks and prefer Serena's symbol-aware tools for navigation, references, diagnostics, and refactors.
 - Use the repo skill at `.agents/skills/premium-3d-frontend/SKILL.md` for repeated premium frontend build, review, refactor, security, accessibility, responsive, motion, 3D/canvas, and verification workflows.
 - If a global Codex skill with the same `premium-3d-frontend` name is also installed, prefer this repo-scoped skill while working inside this project.
 - Keep `AGENTS.md` for project-wide rules and `SKILL.md` for repeatable task workflows so prompts stay shorter and Codex behavior stays consistent.
