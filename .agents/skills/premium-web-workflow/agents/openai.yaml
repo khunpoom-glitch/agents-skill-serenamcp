@@ -1,0 +1,4 @@
+interface:
+  display_name: "Premium Web Workflow"
+  short_description: "Premium web workflow for HTML, CSS, JS, TS, React, Python automation, and 3D UI"
+  default_prompt: "Use $premium-web-workflow to build, review, or refine a premium web experience with polished frontend quality, meaningful 3D/canvas depth, and focused verification."

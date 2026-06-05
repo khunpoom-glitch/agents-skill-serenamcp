@@ -17,11 +17,25 @@
 - Avoid reading generated or dependency folders unless the task explicitly requires it, such as `node_modules`, `dist`, build outputs, virtual environments, and archived vendor folders.
 - When a repository has its own `AGENTS.md`, follow the local project guidance where it is more specific than this global guidance.
 
+## Operating Workflow
+
+Treat this section as the canonical project workflow. Repo skills may specialize these steps for a task type, but should not redefine or contradict them.
+
+1. Ask: clarify only what blocks safe progress. Ask before destructive changes, new production dependencies, TypeScript migration, database changes, broad refactors, or unclear commit/push scope.
+2. Plan: state a short plan for multi-step work, including files likely to change, validation commands, and any risk or assumption that matters.
+3. Implement: make focused edits that follow existing project patterns. Keep changes scoped, preserve user work, and avoid unrelated refactors.
+4. Review Diff: inspect the actual diff before declaring work ready. Check behavior, accessibility, security, responsive layout, code boundaries, and whether generated or ignored files were accidentally included.
+5. Run/Test: run the most relevant available checks. For frontend changes, prefer `npm run build`, `npm run test`, and browser verification when visual or 3D behavior changed. For scripts, run the narrowest safe command that exercises the changed path.
+6. Commit: commit only when the user asks or the task is explicitly a publish workflow. Stage only intended paths, use a conventional commit message, and never include unrelated local changes.
+
 ## Codex Skills
 
-- Use the repo skill at `.agents/skills/premium-3d-frontend/SKILL.md` for repeated premium frontend build, review, refactor, security, accessibility, responsive, motion, 3D/canvas, and verification workflows.
-- If a global Codex skill with the same `premium-3d-frontend` name is also installed, prefer this repo-scoped skill while working inside this project.
+- When this repository includes `.agents/skills/premium-web-workflow/SKILL.md`, use that repo-scoped skill for repeated premium web/frontend build, review, refactor, security, accessibility, responsive, motion, 3D/canvas, Python automation, and verification workflows.
+- For new projects, copy this `AGENTS.md` as the starting template, then adjust project-specific stack, folder structure, commands, deployment, and security constraints.
+- Prefer the global `premium-web-workflow` skill for cross-project premium web workflows; add a repo-scoped `SKILL.md` only when a project needs special rules that should travel with that repository.
+- If a global Codex skill with the same `premium-web-workflow` name is also installed, prefer this repo-scoped skill while working inside this project.
 - Keep `AGENTS.md` for project-wide rules and `SKILL.md` for repeatable task workflows so prompts stay shorter and Codex behavior stays consistent.
+- When publishing these instruction files, remember that `.agents/` is ignored locally; stage skill files explicitly and verify only intended instruction paths are included.
 
 ## Stack Preferences
 
@@ -30,6 +44,16 @@
 - Use lucide-react icons for interface controls and small symbolic UI.
 - For real 3D scenes, prefer Three.js with React Three Fiber and Drei when adding dependencies is appropriate.
 - Ask before adding new production dependencies, especially 3D, physics, shader, postprocessing, or asset pipeline packages.
+- Use Python for local automation, data shaping, asset processing, smoke checks, and repeatable scripts when it is simpler and safer than JavaScript tooling.
+
+## Language And Framework Guidance
+
+- HTML: prefer semantic elements, accessible names, proper form labels, useful alt text, correct heading order, and ARIA only when native semantics cannot express the interaction.
+- CSS: understand cascade, specificity, layout, container constraints, responsive breakpoints, reduced motion, and browser rendering cost before adding visual effects. Prefer Tailwind utilities where the project already uses them, and keep shared tokens or global resets in `src/index.css`.
+- JavaScript: use modern ES modules, clear async/await control flow, explicit error handling, and small pure helpers for business rules. Avoid hidden globals, brittle DOM querying in React views, and silent promise failures.
+- TypeScript: do not introduce TypeScript or TSX unless the project already uses it or the user approves migration. When working in TypeScript projects, prefer strict boundary types, `unknown` before `any`, discriminated unions for state, and type guards for external data.
+- React: compose small components and hooks with explicit props, controlled form state where appropriate, side effects isolated in `useEffect`, stable keys for lists, and user-visible loading, empty, error, and success states.
+- Python: use `pathlib`, `argparse`, clear functions, type hints for non-trivial scripts, structured logging or actionable print output, and virtual-environment-aware commands. Validate file paths before destructive operations and keep secrets in environment variables.
 
 ## Language And File Preferences
 
