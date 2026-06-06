@@ -1,0 +1,8 @@
+# Local installer/test outputs
+.tmp-*/
+*.incoming
+*.incoming-*
+
+# OS metadata
+.DS_Store
+Thumbs.db

@@ -1,151 +1,76 @@
 # AGENTS.md
 
-## Project Focus
+## Purpose
 
-- Optimize for premium, cinematic, visually rich websites with interactive 3D depth.
-- Treat the first screen as a usable designed experience, not a generic landing-page placeholder.
-- Prioritize strong composition, readable Thai/English typography, smooth motion, and clear brand presence.
-- Make 3D meaningful: it should clarify the product, brand, workflow, object, or atmosphere instead of being decoration only.
+- Treat this file as durable project context for Codex: project rules, workflow, safety boundaries, and verification expectations.
+- Keep this file stack-neutral and reusable. Put specialized domain workflows in repo or global skills.
 - Default to Thai for user-facing conversation when the user writes in Thai.
-
-## How To Use This Guidance
-
-- Treat this file as persistent project context that reduces repeated prompting and keeps Codex consistent.
-- Before editing, identify the stack, coding style, test commands, folder structure, and security constraints that apply to the current task.
-- Prefer targeted context gathering over opening large files or scanning the whole project.
-- Use `rg`/`rg --files` first for discovery, then read only the files that are likely to matter.
-- Avoid reading generated or dependency folders unless the task explicitly requires it, such as `node_modules`, `dist`, build outputs, virtual environments, and archived vendor folders.
-- When a repository has its own `AGENTS.md`, follow the local project guidance where it is more specific than this global guidance.
+- Prefer concise, high-signal context over broad generic instructions.
 
 ## Operating Workflow
 
-Treat this section as the canonical project workflow. Repo skills may specialize these steps for a task type, but should not redefine or contradict them.
+Use this as the default project workflow. Skills may specialize a step, but should not contradict it.
 
-1. Ask: clarify only what blocks safe progress. Ask before destructive changes, new production dependencies, TypeScript migration, database changes, broad refactors, or unclear commit/push scope.
-2. Plan: state a short plan for multi-step work, including files likely to change, validation commands, and any risk or assumption that matters.
-3. Implement: make focused edits that follow existing project patterns. Keep changes scoped, preserve user work, and avoid unrelated refactors.
-4. Review Diff: inspect the actual diff before declaring work ready. Check behavior, accessibility, security, responsive layout, code boundaries, and whether generated or ignored files were accidentally included.
-5. Run/Test: run the most relevant available checks. For frontend changes, prefer `npm run build`, `npm run test`, and browser verification when visual or 3D behavior changed. For scripts, run the narrowest safe command that exercises the changed path.
-6. Commit: commit only when the user asks or the task is explicitly a publish workflow. Stage only intended paths, use a conventional commit message, and never include unrelated local changes.
+1. Ask: clarify only what blocks safe progress. Ask before destructive changes, new production dependencies, migrations, broad refactors, unclear publish scope, or anything that could overwrite user work.
+2. Plan: for multi-step work, state a short plan with likely files, validation commands, assumptions, and meaningful risks.
+3. Implement: make focused edits that match existing project patterns. Avoid unrelated refactors and preserve user changes.
+4. Review Diff: inspect the actual diff before calling work ready. Check behavior, boundaries, security, accessibility, generated files, ignored files, and unintended changes.
+5. Run/Test: run the narrowest relevant checks that prove the changed path works. Prefer project-defined scripts over invented commands.
+6. Commit: commit only when the user asks or the task is explicitly a publish workflow. Stage only intended paths and use a conventional commit message when requested.
+
+## Context Gathering
+
+- Identify the stack, package manager, scripts, folder structure, coding style, and security constraints before editing.
+- Use `rg` and `rg --files` first for discovery; read targeted files instead of scanning the whole project.
+- Avoid generated, dependency, build, cache, virtual environment, and vendor folders unless the task explicitly requires them.
+- Inspect `package.json`, lockfiles, config files, test setup, scripts, and local docs before assuming commands or architecture.
+- If another `AGENTS.md` exists deeper in the repo, follow the more specific local guidance for that area.
+
+## Project Adaptation
+
+- Prefer existing frameworks, helpers, file conventions, and dependency choices over introducing new patterns.
+- Do not force React, TypeScript, Tailwind, 3D, a database, or a new toolchain unless the project already uses it or the user approves it.
+- For new projects, copy this file as a starting template, then customize stack, commands, deployment, data model, and security rules.
+- Keep docs, generated outputs, experiments, and runtime code clearly separated unless the user asks to integrate them.
 
 ## Codex Skills
 
-- When this repository includes `.agents/skills/premium-web-workflow/SKILL.md`, use that repo-scoped skill for repeated premium web/frontend build, review, refactor, security, accessibility, responsive, motion, 3D/canvas, Python automation, and verification workflows.
-- For new projects, copy this `AGENTS.md` as the starting template, then adjust project-specific stack, folder structure, commands, deployment, and security constraints.
-- Prefer the global `premium-web-workflow` skill for cross-project premium web workflows; add a repo-scoped `SKILL.md` only when a project needs special rules that should travel with that repository.
-- If a global Codex skill with the same `premium-web-workflow` name is also installed, prefer this repo-scoped skill while working inside this project.
-- Keep `AGENTS.md` for project-wide rules and `SKILL.md` for repeatable task workflows so prompts stay shorter and Codex behavior stays consistent.
-- When publishing these instruction files, remember that `.agents/` is ignored locally; stage skill files explicitly and verify only intended instruction paths are included.
+- Use `.agents/skills/premium-web-workflow/SKILL.md` when this repo includes it and the task involves web UI, frontend build/review/refactor, accessibility, responsive polish, 3D/canvas, security review, Python automation for web assets, or verification workflows.
+- Prefer the global `premium-web-workflow` skill for cross-project web workflows; add a repo-scoped skill only when project-specific rules should travel with the repository.
+- If both global and repo-scoped versions exist with the same name, prefer the repo-scoped skill inside that project.
+- Keep `AGENTS.md` for project-wide rules and `SKILL.md` for repeatable task workflows.
+- When publishing instruction files, remember that `.agents/` may be ignored locally; stage skill files explicitly and verify only intended instruction paths are included.
 
-## Stack Preferences
+## Engineering Defaults
 
-- For this workspace, prefer React + Vite + Tailwind CSS patterns already present in the project.
-- Use Framer Motion for UI motion and page transitions when the project already includes it.
-- Use lucide-react icons for interface controls and small symbolic UI.
-- For real 3D scenes, prefer Three.js with React Three Fiber and Drei when adding dependencies is appropriate.
-- Ask before adding new production dependencies, especially 3D, physics, shader, postprocessing, or asset pipeline packages.
-- Use Python for local automation, data shaping, asset processing, smoke checks, and repeatable scripts when it is simpler and safer than JavaScript tooling.
-
-## Language And Framework Guidance
-
-- HTML: prefer semantic elements, accessible names, proper form labels, useful alt text, correct heading order, and ARIA only when native semantics cannot express the interaction.
-- CSS: understand cascade, specificity, layout, container constraints, responsive breakpoints, reduced motion, and browser rendering cost before adding visual effects. Prefer Tailwind utilities where the project already uses them, and keep shared tokens or global resets in `src/index.css`.
-- JavaScript: use modern ES modules, clear async/await control flow, explicit error handling, and small pure helpers for business rules. Avoid hidden globals, brittle DOM querying in React views, and silent promise failures.
-- TypeScript: do not introduce TypeScript or TSX unless the project already uses it or the user approves migration. When working in TypeScript projects, prefer strict boundary types, `unknown` before `any`, discriminated unions for state, and type guards for external data.
-- React: compose small components and hooks with explicit props, controlled form state where appropriate, side effects isolated in `useEffect`, stable keys for lists, and user-visible loading, empty, error, and success states.
-- Python: use `pathlib`, `argparse`, clear functions, type hints for non-trivial scripts, structured logging or actionable print output, and virtual-environment-aware commands. Validate file paths before destructive operations and keep secrets in environment variables.
-
-## Language And File Preferences
-
-- Use JavaScript and JSX for React code in this workspace unless the project already has TypeScript or the user asks to migrate.
-- Do not introduce TypeScript, TSX, or a type-checking setup without a clear reason and user approval.
-- Use modern ES modules syntax: `import`/`export`, small named helpers, and clear component exports.
-- Use JSX with semantic HTML elements for UI structure.
-- Use Tailwind utility classes for component styling and keep shared/global CSS in `src/index.css` when needed.
-- Use JSON for configuration and package metadata; preserve valid formatting and avoid comments in JSON files.
-- Use Markdown for project instructions, notes, specs, and documentation.
-- Use SQL for database schema, migrations, and queries when a relational database is introduced; otherwise follow the existing ORM or database tool already present.
-- Use PowerShell-compatible commands when providing Windows shell examples for this workspace.
-
-## Project Structure Awareness
-
-- Keep application code in `src/`, reusable UI in `src/components/`, imported assets in `src/assets/`, and public static files in `public/` when this structure exists.
-- Check `package.json` scripts before assuming commands.
-- Treat `scripts/` as project automation; inspect it before changing build, smoke-test, or asset-generation behavior.
-- Keep documentation, notes, and generated outputs separate from runtime UI code unless the user asks to integrate them.
-
-## 3D Design Direction
-
-- Build 3D scenes as full-bleed or naturally integrated hero/section experiences, not tiny previews trapped inside decorative cards.
-- Use clear camera framing, lighting, shadows, materials, and depth cues so objects read well on desktop and mobile.
-- Keep scenes interactive when useful: pointer parallax, hover states, scroll-linked camera movement, or subtle idle animation.
-- Provide reduced-motion behavior for users who prefer less motion.
-- Avoid visual noise: no random floating objects unless they support the story, brand, or workflow.
-- Ensure 3D canvas content is never blank, cropped awkwardly, or blocking important text and controls.
-
-## Frontend Quality Bar
-
-- Match the existing visual system before inventing a new one.
-- Use responsive constraints for fixed-format elements such as canvases, navbars, cards, toolbars, and hero media.
-- Do not let text overlap, overflow buttons, or collide with 3D/canvas layers on mobile or desktop.
-- Keep cards to actual repeated items, tools, and modals; avoid nesting cards inside cards.
-- Use real images, generated bitmap assets, or rendered 3D/canvas visuals where visual identity matters.
-- Avoid one-note palettes. Balance dark cinematic backgrounds with clear contrast, accent color discipline, and enough neutral space.
-
-## Performance And Assets
-
-- Keep 3D assets lightweight and intentional. Compress textures and avoid oversized models.
-- Lazy-load heavy scenes or assets when they are below the fold.
-- Watch mobile GPU cost: limit postprocessing, particle counts, realtime shadows, and unnecessary re-renders.
-- Prefer reusable scene components with clear props for camera, content, theme, and interaction state.
-- Keep animation smooth but subtle; design for perceived quality, not constant movement.
-
-## Coding Style
-
-- Inspect the project structure and conventions before editing.
-- Keep changes scoped to the user's request and avoid unrelated refactors.
-- Never overwrite, revert, or discard user changes unless the user explicitly asks for it.
-- Prefer existing dependencies, helpers, and patterns over introducing new ones.
-- Keep code readable: small components, direct names, minimal cleverness.
-- Add comments only when they clarify non-obvious behavior.
-- Preserve surrounding formatting and style.
-
-## Code Fundamentals
-
-- Separate concerns clearly: UI rendering, state, data access, validation, and side effects should not be tangled together.
-- Prefer explicit data flow through props, hooks, functions, or services over hidden global state.
-- Validate inputs at boundaries: forms, API handlers, database writes, file imports, and external service responses.
+- Keep changes small, reversible, and scoped to the user's request.
+- Never overwrite, revert, or discard unrelated user changes unless the user explicitly asks.
+- Use structured APIs and parsers when available instead of brittle string manipulation.
+- Validate inputs at system boundaries: forms, API handlers, database writes, file imports, CLI arguments, and external service responses.
 - Handle loading, empty, error, and success states for user-facing flows.
-- Keep reusable logic in small functions or hooks with clear names and minimal dependencies.
-- Avoid duplicating business rules across components; extract shared rules when duplication risks drift.
-- Do not swallow errors silently. Surface actionable messages to users and useful details to logs where appropriate.
-- When changing public behavior, update tests, smoke checks, docs, or examples that depend on it.
+- Surface actionable errors to users and useful details to logs. Do not swallow errors silently.
+- Add comments only where they clarify non-obvious behavior.
 
-## Database Fundamentals
+## Language And Stack Handling
 
-- Do not add a database or ORM unless the task needs persistent structured data.
-- Identify the data model, ownership, relationships, and read/write paths before creating tables or collections.
-- Prefer migrations or schema files over manual, undocumented database changes.
-- Keep secrets and connection strings in environment variables; never commit real credentials.
-- Validate and sanitize all data before writes. Use parameterized queries or ORM query builders; never concatenate user input into SQL.
-- Design for integrity: primary keys, foreign keys, uniqueness, not-null constraints, defaults, and timestamps where useful.
-- Use transactions for multi-step writes that must succeed or fail together.
-- Add indexes for real query patterns, not speculative ones. Check performance before adding many indexes.
-- Plan authorization close to the data layer: row-level security, ownership checks, tenant boundaries, or server-side access control as appropriate.
-- Treat destructive migrations, backfills, deletes, and data rewrites as high-risk; make them reversible or backed up when possible.
+- HTML: prefer semantic structure, valid nesting, labels, alt text, heading order, and keyboard access.
+- CSS: reason about cascade, specificity, responsive constraints, overflow, browser support, and reduced motion.
+- JavaScript: use modern modules, explicit async control flow, clear error handling, and small named helpers.
+- TypeScript: use it only when present or approved; prefer precise boundary types, `unknown` for external data, and type guards over broad `any`.
+- React: when present, keep components focused, props explicit, effects reserved for side effects, stable keys for lists, and state close to where it is used.
+- Python: use it for automation, data shaping, asset processing, smoke checks, and scripts when it is the simplest reliable tool; prefer `pathlib`, `argparse`, clear functions, and safe path handling.
+- SQL/databases: introduce persistence only when needed; prefer migrations, constraints, parameterized queries, transactions for multi-step writes, and authorization close to the data layer.
 
 ## Security And Reliability
 
-- Do not hardcode secrets, API keys, tokens, private URLs, or credentials.
-- Be careful with user-supplied content, external links, forms, downloads, and embedded media.
-- For frontend work, check accessibility basics: semantic elements, alt text, focus states, keyboard access, contrast, and reduced motion.
-- For refactors, inspect references before renaming or moving components.
-- Summarize changed files and verification results clearly at the end of the task.
+- Never hardcode secrets, API keys, tokens, private URLs, or credentials.
+- Treat user-supplied content, external links, downloads, embedded media, and file operations as risk boundaries.
+- Ask before destructive migrations, deletes, backfills, recursive file operations, credential changes, or production-affecting commands.
+- Before recursive deletes or moves on Windows, verify resolved absolute targets are inside the intended directory.
 
 ## Verification
 
-- After frontend changes, run the most relevant check from `package.json`: usually `npm run build`, `npm run test`, or both when available.
-- For visual or 3D work, start the local dev server and verify in a browser when practical.
-- Check at least one desktop viewport and one mobile viewport for layout, canvas framing, interaction, and text fit.
-- Confirm the 3D/canvas area renders nonblank and does not cover critical UI.
-- If verification cannot be run, explain why and note the remaining risk.
+- Check project scripts before choosing commands. Common examples include `npm run build`, `npm run test`, `npm run lint`, `pytest`, or focused smoke checks.
+- For frontend or visual changes, verify at least one desktop and one mobile viewport when practical.
+- For script changes, run the narrowest safe command that exercises the changed path, such as `--help`, a focused test file, or a dry run.
+- If verification cannot run, explain why and name the remaining risk.
